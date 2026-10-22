@@ -2,12 +2,13 @@
 const productModel = require("../models/Product")
 
 
-class CustomerRepository{
+class ProductRepository{
 
     async  createProduct(productData){
          
         try {
-            const product = await productModel.create({productData})
+        
+             const product = await productModel.create({productData})
             
             return product
         } catch (error) {
@@ -17,5 +18,41 @@ class CustomerRepository{
     }
 
 
+    async findProductById(id){
+        const product = await productModel.findById(id)
+
+        return product
+    }
+
+
+    async findProducts(){
+        const products = await productModel.find()
+
+        return products
+    }
+
+    async  updateProduct(id, productData){
+        const product = await productModel.findByIdAndUpdate(
+            id,
+            {$set:productData},
+            {new:true, runValidators:true}
+        )
+
+        return product
+
+        
+    }
+
+    async deleteProduct(id){
+        return await productModel.findByIdAndDelete(
+            id,
+            {$set: {isDeleted:true, deletedAt:new Date()}},
+            {new:true}
+        )
+    }
+
+
 
 }
+
+module.exports = new ProductRepository()
