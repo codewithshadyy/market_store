@@ -18,6 +18,7 @@ const customerSchema = new mongoose.Schema({
     min:0
 
   },
+  description:Text,
   category:{
     type:Schema.Types.ObjectId,
     ref:"Category",
