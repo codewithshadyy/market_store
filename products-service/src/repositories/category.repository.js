@@ -74,8 +74,12 @@ class CategoryRepository{
     }
 
 
+async findCategories(){
+    const category =  await categoryModel.find()
 
-    
+    return category
+}
+
 
     
 }
