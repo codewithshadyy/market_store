@@ -118,3 +118,5 @@ async findCategories(req, res, next){
 }
 
 }
+
+module.exports = new CategoryController()
