@@ -3,10 +3,12 @@ const CategoryRepository = require("../services/category.services")
 
 
 class CategoryService{
-    async createCatgegory(data){
+    async createCatgegory(name){
 
         try {
-            const category = await CategoryRepository.CategoryRepository(data)
+
+            
+            const category = await CategoryRepository.CategoryRepository(name)
 
             if(category){
                 const error = new Error("oops category Exists")

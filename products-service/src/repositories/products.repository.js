@@ -20,6 +20,10 @@ class ProductRepository{
         }
     }
 
+    async findProductByname(name){
+        return await productModel.findOne(name)
+    }
+
 
     async findProductById(id){
         const product = await productModel.findById(id)

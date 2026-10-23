@@ -6,16 +6,22 @@ const {Schema} = require('mongoose')
 
 
 const customerSchema = new mongoose.Schema({
-  name:String,
+  name:{
+    type:String,
+    unique:true,
+    required:true
+  },
   price:{
     type:Number,
     required:true,
-    min:0
+    min:0,
+    default:0
   },
   stock:{
     type:Number,
     required:true,
-    min:0
+    min:0,
+    default:0
 
   },
   description:Text,
