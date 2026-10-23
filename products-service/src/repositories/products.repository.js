@@ -21,21 +21,34 @@ class ProductRepository{
     }
 
     async findProductByname(name){
-        return await productModel.findOne(name)
+        return await productModel.findOne(name).populate( "category" ,"price stock description")
     }
 
 
     async findProductById(id){
-        const product = await productModel.findById(id)
+        const product = await productModel.findById(id).populate("category" ,"name price stock description")
 
         return product
     }
 
 
-    async findProducts(){
-        const products = await productModel.find()
+    async findProducts(page = 1, limit = 10){
+
+        const skip = (page - 1) * limit
+
+        const products = await productModel
+        .find()
+        .skip(skip)
+        .limit(limit)
 
         return products
+    }
+
+    async productsCount(){
+
+        const productCount = await productModel.countDocuments()
+
+        return productCount      
     }
 
     async  updateProduct(id, productData){
