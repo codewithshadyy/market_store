@@ -16,7 +16,7 @@ class CategoryController{
                 return res.status(400).json({message:"Name is required"})
             }
 
-            const category = await categoryServices.createCategory(name)
+            const category = await CategoryService.createCategory(name)
 
             return res.status(201).json({
                 message:"Category created successfully",
@@ -106,7 +106,7 @@ async findCategories(req, res, next){
 
 
     try {
-        const categories = await CategoryService.findCategory()
+        const categories = await CategoryService.findCategories()
 
         return res.status(200).json(categories)
 

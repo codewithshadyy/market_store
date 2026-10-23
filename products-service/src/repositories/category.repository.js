@@ -13,6 +13,10 @@ class CategoryRepository{
         return  category
     }
 
+    async fndCategoryByName(name){
+       return  await categoryModel.findOne(name)
+    }
+
 
 
     async findCategoryById(id){
@@ -39,9 +43,9 @@ class CategoryRepository{
             
         } catch (error) {
 
-            const error = new Error(`Error in product repo:${error.message}`)
+            throw new Error(`Error in product repo:${error.message}`)
 
-            throw error
+            
             
         }
 
@@ -63,9 +67,9 @@ class CategoryRepository{
             
         } catch (error) {
 
-            const error = new Error(`Error deleting category:${error.message}`)
+            throw new Error(`Error deleting category:${error.message}`)
 
-            throw error
+            
 
 
 

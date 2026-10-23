@@ -1,5 +1,5 @@
 
-const CategoryRepository = require("../services/category.services")
+const CategoryRepository = require("../repositories/category.repository")
 
 
 class CategoryService{
@@ -9,20 +9,24 @@ class CategoryService{
 
         try {
 
-            
-            const category = await CategoryRepository.CategoryRepository(name)
+            const categoryExists = await CategoryRepository.fndCategoryByName({name})
 
-            if(category){
-                const error = new Error("oops category Exists")
-
-                throw error
+            if(categoryExists){
+                throw new Error("Category Exists already, Try another name")
             }
+
+            
+            const category = await CategoryRepository.createCategory({
+                name
+            })
+
+            
             
             return category
         } catch (error) {
 
-            const error = new  Error(`Error creating category:${error.message}`)
-            throw error
+            throw new  Error(`Error creating category:${error.message}`)
+          
             
         }
 
@@ -36,33 +40,33 @@ class CategoryService{
             const category = await CategoryRepository.findCategoryById(id)
 
             if(!category){
-                const error  = new  Error("oops! category not found")
+                throw new   Error("oops! category not found")
 
-                throw error
+                
             }
             
         } catch (error) {
 
-           const error =  new Error(`Error finding Category:${error.message}`)
-           return error
+           throw  new Error(`Error finding Category:${error.message}`)
+           
             
         }
     }
 
 
-    async findCategory(){
+    async findCategories(){
 
         try {
 
-        const data = await CategoryRepository.findCategory()
+        const data = await CategoryRepository.findCategories()
 
         return data
             
         } catch (error) {
 
-            const error = new error(`Error fetching category:${error.message}`)
+            throw new Error(`Error fetching category:${error.message}`)
 
-            throw error
+          
             
         }
         
@@ -79,7 +83,7 @@ class CategoryService{
             const error = new Error("Category does not exists")
         }
 
-        const category = await CategoryRepository.updateCategory(data)
+        const category = await CategoryRepository.updateCategory(id, data)
 
         return category
 
@@ -87,9 +91,8 @@ class CategoryService{
             
         } catch (error) {
 
-            const error = new error(`Error updating Category:${error.message}`)
+            throw  new Error(`Error updating Category:${error.message}`)
 
-            throw error
             
         }
     }
@@ -115,9 +118,9 @@ class CategoryService{
             
         } catch (error) {
 
-            const error = new Error(`Error deleting Category:${error.message}`)
+            throw new Error(`Error deleting Category:${error.message}`)
 
-            throw error
+            
             
         }
 
