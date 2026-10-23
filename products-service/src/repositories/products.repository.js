@@ -12,7 +12,10 @@ class ProductRepository{
             
             return product
         } catch (error) {
-            throw Error("Error creating the product in repo", error.message)
+            throw  new  Error("Error creating the product in repo", error.message)
+
+          
+            
             
         }
     }
@@ -44,7 +47,7 @@ class ProductRepository{
     }
 
     async deleteProduct(id){
-        return await productModel.findByIdAndDelete(
+        return await productModel.findByIdAndUpdate(
             id,
             {$set: {isDeleted:true, deletedAt:new Date()}},
             {new:true}
