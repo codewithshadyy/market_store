@@ -3,7 +3,9 @@ const CategoryRepository = require("../services/category.services")
 
 
 class CategoryService{
-    async createCatgegory(name){
+
+
+    async createCategory(name){
 
         try {
 
@@ -46,6 +48,84 @@ class CategoryService{
             
         }
     }
+
+
+    async findCategory(){
+
+        try {
+
+        const data = await CategoryRepository.findCategory()
+
+        return data
+            
+        } catch (error) {
+
+            const error = new error(`Error fetching category:${error.message}`)
+
+            throw error
+            
+        }
+        
+    }
+
+    async updateCategory(id, data){
+        
+
+    try {
+
+        const categoryExists = await CategoryRepository.findCategoryById(id)
+
+        if(!categoryExists){
+            const error = new Error("Category does not exists")
+        }
+
+        const category = await CategoryRepository.updateCategory(data)
+
+        return category
+
+
+            
+        } catch (error) {
+
+            const error = new error(`Error updating Category:${error.message}`)
+
+            throw error
+            
+        }
+    }
+
+
+
+
+    async deleteCategory(id){
+
+        try {
+
+        const categoryExists = await CategoryRepository.findCategoryById(id)
+
+        if(!categoryExists){
+            const error = new Error("Category does not exists")
+        }
+
+        const category = await CategoryRepository.deleteCategory(id)
+
+        return category
+
+
+            
+        } catch (error) {
+
+            const error = new Error(`Error deleting Category:${error.message}`)
+
+            throw error
+            
+        }
+
+    }
+
+
+
+
 
 
     
