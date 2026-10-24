@@ -16,19 +16,21 @@ class ProductController{
                 return res.status(400).json({message:"Sorry name and other field is required"})
             }
 
-            const existingProduct = await ProductService.findProductByName(name)
+            const existingProduct = await ProductService.findProductByName({name})
 
             if(existingProduct){
                 return res.status(400).json({message:"Product exists"})
             }
 
-            const product = await ProductService.createProduct({
+            const product = await ProductService.createProduct(
                 name,
                 price,
                 stock,
-                category,
+                category    
 
-            })
+            )
+
+            console.log(product)
 
             return res.status(201).json({
                 message:`${product.name} has been created`,
@@ -103,7 +105,7 @@ class ProductController{
 
         try {
             const page = Number(req.query.page) || 1
-            const limit = number(req.query.limit) || 10
+            const limit = Number(req.query.limit) || 10
 
             const results = await ProductService.findProducts(page, limit)
 

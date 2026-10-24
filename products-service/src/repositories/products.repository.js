@@ -4,15 +4,19 @@ const productModel = require("../models/Product")
 
 class ProductRepository{
 
-    async  createProduct(productData){
+    async  createProduct(data){
          
         try {
+
+            const {name, price, stock, category} = data
         
-             const product = await productModel.create({productData})
+             const product = (await productModel.create(data)).populate("category", "name")
             
             return product
         } catch (error) {
-            throw  new  Error("Error creating the product in repo", error.message)
+
+            console.log(error.message)
+            throw  new  Error("Error creating the product in repo")
 
           
             
@@ -21,7 +25,7 @@ class ProductRepository{
     }
 
     async findProductByname(name){
-        return await productModel.findOne(name).populate( "category" ,"price stock description")
+        return await productModel.findOne(name).populate( "category" ,"name")
     }
 
 

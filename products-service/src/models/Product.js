@@ -5,7 +5,7 @@ const mongoose  = require("mongoose")
 const {Schema} = require('mongoose')
 
 
-const customerSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
   name:{
     type:String,
     unique:true,
@@ -24,9 +24,11 @@ const customerSchema = new mongoose.Schema({
     default:0
 
   },
-  description:Text,
+  description:{
+    type:String
+  },
   category:{
-    type:Schema.Types.ObjectId,
+    type:mongoose.Schema.Types.ObjectId,
     ref:"Category",
     required:true
   },

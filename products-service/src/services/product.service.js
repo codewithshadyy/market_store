@@ -7,11 +7,11 @@ class ProductService{
     async createProduct(name, price, stock, category ){
         try {
 
-            const existingProduct = await ProductRepository.findProductByname(name)
+            const existingProduct = await ProductRepository.findProductByname({name})
 
             if(existingProduct){
-                const error = new Error("Oops product already exists")
-                throw error
+                throw  new Error("Oops product already exists")
+                
             }
               
             
@@ -25,6 +25,7 @@ class ProductService{
 
             const data =  {
                 id:product._id,
+                name:product.name,
                 price:product.price,
                 stock:product.stock,
                 category:product.category.name
@@ -34,9 +35,10 @@ class ProductService{
             
         } catch (error) {
 
-          const error =   new Error("product creation error in service");
+            console.log(error.message)
 
-          throw error
+          throw  new Error("product creation error in service");
+
 
 
             
@@ -52,7 +54,7 @@ class ProductService{
 
          const [products, totalProducts] = await Promise.all(
           [
-              ProductRepositoryroductsRepository.findProducts(page, limit),
+              ProductRepository.findProducts(page, limit),
             ProductRepository.productsCount()
           ]
         )
@@ -130,7 +132,7 @@ class ProductService{
 
             const product = await ProductRepository.findProductById(id)
 
-        if(product){
+        if(!product){
             throw new Error("Product not found")
         }
 
