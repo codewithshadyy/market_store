@@ -40,4 +40,39 @@ class ProductController{
             
         }
     }
+
+
+    async updateProduct(req, res, next){
+
+        try {
+
+            const {id} = req.params
+            const existingProduct = await ProductService.findProductById(id)
+
+            if(!existingProduct){
+                return res.status(404).json({
+
+                    message:"Sorry product not found"
+                })
+            }
+
+            const updatedProduct = await ProductService.updateProduct(
+                id,
+                req.body
+            )
+
+            return res.status(200).json({
+                message:"Product updated successfully",
+                data:updatedProduct
+            })
+            
+        } catch (error) {
+
+            next(error)
+            
+        }
+    }
+
+
+    
 }
