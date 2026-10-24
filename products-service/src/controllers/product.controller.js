@@ -119,7 +119,45 @@ class ProductController{
     }
 
 
-    
+
+    async findProductByName(req, res, next){
+
+        try {
+
+            const {name} = req.params
+
+            const existingProduct = await ProductService.findProductByName(name)
+
+            if(!existingProduct){
+                return res.status(404).json({message:"suggested Product not found"})
+            }
+
+            return res.status(200).json(existingProduct)
+            
+        } catch (error) {
+
+            next(error)
+            
+        }
+    }
+
+
+    async deleteProduct(req, res, next){
+
+        try {
+
+            const {id} = req.params
+
+            const product = await ProductService.deleteProduct(id)
+
+            return res.status(200).json({message:'product deleted successfully'})
+            
+        } catch (error) {
+
+            next(error)
+            
+        }
+    }
 
     
 }
