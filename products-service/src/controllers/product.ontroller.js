@@ -1,5 +1,6 @@
 
 
+const productService = require("../services/product.service")
 const ProductService = require("../services/product.service")
 
 
@@ -66,6 +67,29 @@ class ProductController{
                 data:updatedProduct
             })
             
+        } catch (error) {
+
+            next(error)
+            
+        }
+    }
+
+    async findProductById(req, res, next){
+
+        try {
+
+            const {id} = req.params
+
+            const product = await ProductService.findProductById(id)
+
+            if(!product){
+                return res.status(404).json({
+                    message:"Suggested product cannot be found"
+                })
+            }
+            return res.status(200).json({
+                data:product
+            })
         } catch (error) {
 
             next(error)
