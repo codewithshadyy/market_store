@@ -141,6 +141,10 @@ class ProductService{
         }
     }
 
+    async findProductByName(name){
+        return await ProductRepository.findProductByname(name)
+    }
+
 
  
 
