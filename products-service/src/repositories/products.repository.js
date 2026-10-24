@@ -44,6 +44,7 @@ class ProductRepository{
         .find()
         .skip(skip)
         .limit(limit)
+        .populate("category", "name")
 
         return products
     }
