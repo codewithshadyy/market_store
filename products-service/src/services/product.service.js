@@ -13,6 +13,8 @@ class ProductService{
                 const error = new Error("Oops product already exists")
                 throw error
             }
+              
+            
 
             const product = await ProductRepository.createProduct({
                 name,
