@@ -72,6 +72,7 @@ class ProductService{
 
         const results =  {
             data:products,
+            source:"DB",
             pagination:{
                 currentPage:page,
                 limit,
