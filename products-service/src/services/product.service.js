@@ -2,6 +2,8 @@
 
 const ProductRepository =  require("../repositories/products.repository")
 
+const {redisClient} = require("../config/redis")
+
 class ProductService{
 
     async createProduct(name, price, stock, category ){
@@ -51,6 +53,14 @@ class ProductService{
 
    try {
 
+    const cacheKey = `product:page:${page}:limit:${limit}`
+    
+    const cachedProducts  = await redisClient.get(cacheKey)
+
+    if(cachedProducts){
+        return JSON.parse(cachedProducts)
+    }
+
 
          const [products, totalProducts] = await Promise.all(
           [
@@ -60,7 +70,7 @@ class ProductService{
         )
 
 
-        return {
+        const results =  {
             data:products,
             pagination:{
                 currentPage:page,
@@ -70,6 +80,12 @@ class ProductService{
 
             }
         }
+
+        await redisClient.set(cacheKey, JSON.stringify(results), {
+            EX:60
+        })
+
+        return results
 
     
    } catch (error) {
