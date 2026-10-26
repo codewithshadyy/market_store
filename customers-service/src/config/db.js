@@ -1,5 +1,5 @@
 
-
+require("dotenv").config()
 const mongoose = require("mongoose")
 
 
@@ -18,3 +18,5 @@ async function connectDB(){
         
     }
 }
+
+module.exports = connectDB
