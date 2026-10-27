@@ -41,4 +41,26 @@ class ClientRepository{
             
         }
     }
+
+
+    async findClientsByRoles(roles){
+
+        try {
+
+            const clients = await clientModel.find(roles)
+
+            return clients
+            
+        } catch (error) {
+
+            throw new Error(`Error in client repo:${error.message}`)
+            
+        }
+
+
+    }
 }
+
+
+
+module.exports = new ClientRepository()
