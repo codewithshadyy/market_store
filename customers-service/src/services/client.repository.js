@@ -66,3 +66,6 @@ class ClientService{
         }
     }
 }
+
+
+module.exports = new ClientService()
