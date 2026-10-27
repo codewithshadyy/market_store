@@ -1,5 +1,5 @@
 
-const bcrypt = require("bcrypt")
+const Password = require("../utils/password")
 const ClientRepo = require("../repositories/Client.repository")
 
 
@@ -17,6 +17,18 @@ class ClientService{
         if(existingClient){
             throw new Error("oop! the email is taken, try another email")
         }
+
+        const hashedPassword = await Password.hash(password, 10)
+
+        const client = await ClientRepo.signup({
+            email,
+            roles,
+            password:hashedPassword
+        })
+
+
+        return client
+
 
         
 
