@@ -40,4 +40,29 @@ class ClientService{
             
         }
     }
+
+    async login(data){
+
+        try {
+
+            const {email, password} = data
+
+            const client = await ClientRepo.findClientByEmail(email)
+
+            if(!client){
+                throw new Error("Invalid email or password");
+                
+            }
+
+            const isMatch = await Password.compare(client.password, password)
+
+
+            return client
+            
+        } catch (error) {
+
+            throw new Error(`Error in login method of client srvice:${error.message}`)
+            
+        }
+    }
 }
