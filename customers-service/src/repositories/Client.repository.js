@@ -26,4 +26,19 @@ class ClientRepository{
         }
 
     }
+
+    async findClientByEmail(email){
+
+        try {
+
+            const client = await clientModel.findOne(email)
+
+            return client
+            
+        } catch (error) {
+
+            throw new Error(`Error in user repo:${error.message}`)
+            
+        }
+    }
 }
