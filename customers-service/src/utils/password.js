@@ -8,7 +8,7 @@ class Password{
 
         try {
 
-            const HashedPassword = await bcrypt.hash(password, 10)
+            const HashedPassword = await bcrypt.hash(password, salt)
 
             return HashedPassword
             

@@ -56,6 +56,10 @@ class ClientService{
 
             const isMatch = await Password.compare(client.password, password)
 
+            if(!isMatch){
+                throw new Error("Inalid credentials")
+            }
+
 
             return client
             
