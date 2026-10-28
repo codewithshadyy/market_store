@@ -69,6 +69,11 @@ class ClientService{
             
         }
     }
+
+    async findClientByEmail(email){
+
+        return await ClientRepo.findClientByEmail(email)
+    }
 }
 
 
