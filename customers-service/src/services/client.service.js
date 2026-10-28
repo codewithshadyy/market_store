@@ -47,14 +47,16 @@ class ClientService{
 
             const {email, password} = data
 
+
             const client = await ClientRepo.findClientByEmail(email)
+
 
             if(!client){
                 throw new Error("Invalid email or password");
                 
             }
 
-            const isMatch = await Password.compare(client.password, password)
+            const isMatch = await Password.compare(password, client.password)
 
             if(!isMatch){
                 throw new Error("Inalid credentials")
@@ -65,7 +67,7 @@ class ClientService{
             
         } catch (error) {
 
-            throw new Error(`Error in login method of client srvice:${error.message}`)
+            throw new Error(`Error in login method of client service:${error.message}`)
             
         }
     }

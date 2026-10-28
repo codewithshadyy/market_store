@@ -27,7 +27,7 @@ class ClientRepository{
 
         try {
 
-            const client = await clientModel.findOne({email:email}).select("-password")
+            const client = await clientModel.findOne({email:email})
 
             return client
             

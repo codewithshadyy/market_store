@@ -34,6 +34,30 @@ class ClientController{
             
         }
     }
+
+
+
+      async  login(req, res, next){
+
+
+        try {
+
+        const client = await ClientService.login(req.body)
+
+        return res.status(200).json({
+            message: "Login successful",
+            client
+        })
+
+
+        } catch (error) {
+
+            next(error)
+            
+        }
+
+
+      }
 }
 
 
