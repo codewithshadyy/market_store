@@ -18,11 +18,11 @@ class ClientController{
                 return res.status(400).json({message:"email takemn"})
             }
 
-            const client = await ClientService.signup({
+            const client = await ClientService.signup(
                 email,
                 roles,
                 password
-            })
+            )
 
             return res.status(201).json({
                 message:"Client created successfully",

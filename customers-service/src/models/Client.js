@@ -1,7 +1,7 @@
 
 const mongoose = require("mongoose")
 
-const clientSchema = new mongoose({
+const clientSchema = new mongoose.Schema({
     email:{
         type:String,
         unique:true,

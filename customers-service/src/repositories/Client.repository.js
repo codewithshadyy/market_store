@@ -7,17 +7,13 @@ const clientModel = require("../models/Client")
 class ClientRepository{
 
 
-    async createClient(email, roles, password){
+    async createClient(data){
 
         try {
+            const {  email,roles,password}  = data
+            const client = (await clientModel.create(data))
 
-            const data = await clientModel.create({
-                email,
-                roles,
-                password
-            })
-
-            return data
+            return client
             
         } catch (error) {
 
@@ -31,7 +27,7 @@ class ClientRepository{
 
         try {
 
-            const client = await clientModel.findOne(email)
+            const client = await clientModel.findOne({email:email}).select("-password")
 
             return client
             

@@ -5,12 +5,12 @@ const ClientRepo = require("../repositories/Client.repository")
 
 class ClientService{
 
-    async signup(data){
+    async signup(email, roles, password){
        
 
         try {
 
-             const {email, roles, password} = data
+          
 
         const existingClient = await ClientRepo.findClientByEmail(email)
 
@@ -20,7 +20,7 @@ class ClientService{
 
         const hashedPassword = await Password.hash(password, 10)
 
-        const client = await ClientRepo.signup({
+        const client = await ClientRepo.createClient({
             email,
             roles,
             password:hashedPassword
