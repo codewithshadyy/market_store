@@ -3,7 +3,9 @@ const express = require("express")
 const router = express.Router()
 const axios = require("axios")
 
-const productClient = await axios.create({
+require("dotenv").config()
+
+const productClient =  axios.create({
     baseURL:process.env.PRODUCT_SERVICE_URL,
     timeout:3000
 })
