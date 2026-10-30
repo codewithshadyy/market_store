@@ -31,6 +31,25 @@ router.get("/", async(req, res, next) => {
 })
 
 
+router.post("/create", async (req, res, next) => {
+
+    try {
+
+        const response = await productClient.post("/products/create", req.body)
+
+        console.log("prodcuts service called")
+
+        return res.status(response.status).json(response.data)
+        
+    } catch (error) {
+
+        next(error)
+        
+    }
+    
+})
+
+
 
 module.exports = router
 
