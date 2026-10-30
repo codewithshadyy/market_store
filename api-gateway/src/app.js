@@ -19,6 +19,35 @@ app.use((req, res) => {
 });
 
 
+app.use((err, req, res, next) => {
+
+    if (err.response) {
+        return res.status(err.response.status).json(
+            err.response.data
+        );
+    }
+
+    if (err.code === "ECONNABORTED") {
+        return res.status(504).json({
+            success: false,
+            message: "Product service timed out"
+        });
+    }
+
+    if (err.request) {
+        return res.status(502).json({
+            success: false,
+            message: "Product service unavailable"
+        });
+    }
+
+    return res.status(500).json({
+        success: false,
+        message: "Internal gateway error"
+    });
+});
+
+
 
 
 

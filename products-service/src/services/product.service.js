@@ -4,6 +4,8 @@ const ProductRepository =  require("../repositories/products.repository")
 
 const {redisClient} = require("../config/redis")
 
+const AppError = require("../utils/AppError")
+
 class ProductService{
 
     async createProduct(name, price, stock, category ){
@@ -148,13 +150,18 @@ class ProductService{
         try {
 
             const product = await ProductRepository.findProductById(id)
+             
 
+            if(!product){
+
+                throw new AppError("Product not found", 404)
+            }
      
             return product
             
         } catch (error) {
 
-            throw new Error(`Error finding product. ${error.message}`)
+            throw new Error(error)
             
         }
     }
