@@ -69,11 +69,7 @@ class ProductRepository{
     }
 
     async deleteProduct(id){
-        return await productModel.findByIdAndUpdate(
-            id,
-            {$set: {isDeleted:true, deletedAt:new Date()}},
-            {new:true}
-        )
+        return await productModel.findByIdAndDelete(id)
     }
 
 

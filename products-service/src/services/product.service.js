@@ -149,15 +149,12 @@ class ProductService{
 
             const product = await ProductRepository.findProductById(id)
 
-        if(!product){
-            throw new Error("Product not found")
-        }
-
-        return product
+     
+            return product
             
         } catch (error) {
 
-            throw new Error("Error finding product")
+            throw new Error(`Error finding product. ${error.message}`)
             
         }
     }

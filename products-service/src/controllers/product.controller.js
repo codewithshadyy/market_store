@@ -153,6 +153,7 @@ class ProductController{
 
             const product = await ProductService.deleteProduct(id)
 
+
             return res.status(200).json({message:'product deleted successfully'})
             
         } catch (error) {

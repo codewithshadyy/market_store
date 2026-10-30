@@ -37,7 +37,6 @@ router.post("/create", async (req, res, next) => {
 
         const response = await productClient.post("/products/create", req.body)
 
-        console.log("prodcuts service called")
 
         return res.status(response.status).json(response.data)
         
@@ -48,6 +47,75 @@ router.post("/create", async (req, res, next) => {
     }
     
 })
+
+
+
+router.put("/edit/:id", async (req, res, next) => {
+
+    try {
+
+        const {id} = req.params
+
+        const response = await productClient.put(`products/edit/${id}`, req.body)
+
+       
+
+        return res.status(response.status).json(response.data)
+        
+    } catch (error) {
+
+        next(error)
+        
+    }
+    
+})
+
+router.delete("/delete/:id", async (req, res, next) => {
+
+    try {
+
+        const {id} = req.params
+
+        const response = await productClient.delete(`products/delete/${id}`, {
+            params:req.params
+        })
+
+       
+
+        return res.status(response.status).json(response.data)
+        
+    } catch (error) {
+
+        next(error)
+        
+    }
+    
+})
+
+
+router.get("/:id", async (req, res, next) => {
+
+    try {
+
+        const {id} = req.params
+
+        const response = await productClient.get(`products/${id}`, {
+            params:req.query
+        })
+
+        
+       
+
+        return res.status(response.status).json(response.data)
+        
+    } catch (error) {
+
+        next(error)
+        
+    }
+    
+})
+
 
 
 
