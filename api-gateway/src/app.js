@@ -9,6 +9,8 @@ const routes = require("../src/routes/index")
 require("dotenv").config()
 app.use(express.json())
 
+
+
 app.use("/api/v1", routes)
 
 app.use((req, res) => {

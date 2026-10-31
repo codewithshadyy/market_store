@@ -3,6 +3,11 @@ const express = require("express")
 const router = express.Router()
 const axios = require("axios")
 
+const Authenticate = require("../middleware/authenticate")
+const Authorize = require("../middleware/authorize")
+
+
+
 require("dotenv").config()
 
 const productClient =  axios.create({
@@ -11,12 +16,17 @@ const productClient =  axios.create({
 })
 
 
-router.get("/", async(req, res, next) => {
+router.get("/", Authenticate.protect,  async(req, res, next) => {
 
     try {
 
+        
+
         const response = await productClient.get("/products", {
-            params:req.query
+            params:req.query,
+              headers: {
+        Authorization: req.headers.authorization
+    }
         })
 
         return res.status(response.status).json(response.data)
@@ -31,11 +41,15 @@ router.get("/", async(req, res, next) => {
 })
 
 
-router.post("/create", async (req, res, next) => {
+
+
+router.post("/create", Authenticate.protect , async (req, res, next) => {
 
     try {
 
         const response = await productClient.post("/products/create", req.body)
+
+        console.log(typeof(Authenticate.protect))
 
 
         return res.status(response.status).json(response.data)
