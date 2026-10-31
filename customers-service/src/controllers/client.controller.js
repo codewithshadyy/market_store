@@ -1,6 +1,7 @@
 
 
 const ClientService = require("../services/client.service")
+const Tokengenerator = require("../middleware/token")
 
 
 class ClientController{
@@ -24,9 +25,12 @@ class ClientController{
                 password
             )
 
+            const token = await Tokengenerator.token(client)
+
             return res.status(201).json({
                 message:"Client created successfully",
-                data:client
+                data:client,
+                token
             })
             
         } catch (error) {
@@ -44,9 +48,12 @@ class ClientController{
 
         const client = await ClientService.login(req.body)
 
+        const token = await Tokengenerator.token(client)
+
         return res.status(200).json({
             message: "Login successful",
-            client
+            client,
+            token
         })
 
 
