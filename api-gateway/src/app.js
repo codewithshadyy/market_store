@@ -45,7 +45,9 @@ app.use((err, req, res, next) => {
 
     return res.status(500).json({
         success: false,
-        message: "Internal gateway error"
+        message: "Internal gateway error",
+        error:err.message
+
     });
 });
 

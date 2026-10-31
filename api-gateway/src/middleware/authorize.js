@@ -4,7 +4,7 @@
 
 class Authorize{
 
-    async roleCheck(...allowedRoles){
+     roleCheck(...allowedRoles){
 
         return (req, res, next) => {
 
@@ -15,8 +15,12 @@ class Authorize{
                 })
             }
 
+            const userRoles = req.user.roles || []
 
-            if(!allowedRoles.includes(req.user.role)){
+            const hasPermission = allowedRoles.some(role => userRoles.includes(role))
+
+
+            if(!hasPermission){
 
                 return res.status(403).json({
                     success:false,

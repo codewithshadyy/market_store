@@ -16,7 +16,7 @@ const productClient =  axios.create({
 })
 
 
-router.get("/", Authenticate.protect,  async(req, res, next) => {
+router.get("/", Authenticate.protect, Authorize.roleCheck("admin", "client"), async(req, res, next) => {
 
     try {
 
