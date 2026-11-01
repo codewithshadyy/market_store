@@ -1,6 +1,7 @@
 
 
 const app = require("./app")
+const {connectRedis} = require("./config/redis")
 
 
 
@@ -15,6 +16,10 @@ async function startServer(){
             console.log("API gateway started successfully")
             console.log(`http://localhost:${process.env.PORT}`)
         })
+
+        await connectRedis()
+
+        
         
     } catch (error) {
 
