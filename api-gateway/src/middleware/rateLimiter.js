@@ -1,25 +1,29 @@
 
-const rateLimiter = require("../utils/redis.rate.limiter")
 
-class RateLimit{
+const { rateLimit } = require("express-rate-limit");
+const { RedisStore } = require("rate-limit-redis");
 
-    async limit(req, res, next){
+const redisClient = require("../config/redis");
 
-        try {
+const anonymousLimiter = rateLimit({
+    windowMs: 60 * 1000,
+    limit: 20,
 
-            await rateLimiter.consume(req.ip)
-            next()
+    standardHeaders: "draft-8",
+    legacyHeaders: false,
 
+    store: new RedisStore({
+        sendCommand: (...args) => redisClient.sendCommand(args),
+    }),
 
-            
-        } catch (error) {
+    keyGenerator: (req) => {
+        return `anonymous:${req.ip}`;
+    },
 
-            return res.status(429).json({
-                message:"Too Many Requests. Please try again later."
-            })
-            
-        }
+    message: {
+        success: false,
+        message: "Too many requests. Please try again later."
     }
-}
+});
 
-module.exports = new RateLimit()
+module.exports = anonymousLimiter;

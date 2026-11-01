@@ -5,7 +5,7 @@ const axios = require("axios")
 
 const Authenticate = require("../middleware/authenticate")
 const Authorize = require("../middleware/authorize")
-
+const RateLimit = require("../middleware/rateLimiter")
 
 
 require("dotenv").config()
