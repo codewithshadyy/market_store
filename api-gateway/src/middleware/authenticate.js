@@ -41,6 +41,8 @@ class Authenticate{
 
 
             req.user = decoded
+
+            console.log(req.user)
             
 
 
