@@ -4,7 +4,7 @@ const clientController = require("../controllers/client.controller")
 
 
 
-router.post("/signup", clientController.signup)
+router.post("/register", clientController.signup)
 router.post("/login", clientController.login)
 
 
