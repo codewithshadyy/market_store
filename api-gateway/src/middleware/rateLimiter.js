@@ -26,4 +26,29 @@ const anonymousLimiter = rateLimit({
     }
 });
 
-module.exports = anonymousLimiter;
+
+
+
+const customerLimiter = rateLimit({
+    windowMs: 60 * 1000,
+    limit: 100,
+
+    standardHeaders: "draft-8",
+    legacyHeaders: false,
+
+    store: new RedisStore({
+        prefix: "customer:",
+        sendCommand: (...args) => redisClient.sendCommand(args),
+    }),
+
+    keyGenerator: (req) => {
+        return `user:${req.user.id}`;
+    },
+
+    message: {
+        success: false,
+        message: "Request limit exceeded. Try again later."
+    }
+});
+
+module.exports = {anonymousLimiter, customerLimiter}
