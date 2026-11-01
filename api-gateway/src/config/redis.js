@@ -8,6 +8,10 @@ const redisClient = createClient({
     url:process.env.REDIS_URL
 })
 
+redisClient.on("error", (err) => {
+    console.log("Error in redis", err.message)
+})
+
 async function connectRedis(){
 
 
@@ -22,6 +26,7 @@ async function connectRedis(){
 
         console.log(`Error connecting to the redis`)
         console.log(`Error:${error.message}`)
+        throw error
         
     }
 }

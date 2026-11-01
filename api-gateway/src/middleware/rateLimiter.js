@@ -1,9 +1,9 @@
 
 
-const { rateLimit } = require("express-rate-limit");
+const { rateLimit, ipKeyGenerator } = require("express-rate-limit");
 const { RedisStore } = require("rate-limit-redis");
 
-const redisClient = require("../config/redis");
+const {redisClient} = require("../config/redis");
 
 const anonymousLimiter = rateLimit({
     windowMs: 60 * 1000,
@@ -17,7 +17,7 @@ const anonymousLimiter = rateLimit({
     }),
 
     keyGenerator: (req) => {
-        return `anonymous:${req.ip}`;
+        return `anonymous:${ipKeyGenerator(req.ip)}`;;
     },
 
     message: {
@@ -41,9 +41,7 @@ const customerLimiter = rateLimit({
         sendCommand: (...args) => redisClient.sendCommand(args),
     }),
 
-    keyGenerator: (req) => {
-        return `user:${req.user.id}`;
-    },
+    keyGenerator: (req) => req.user.id,
 
     message: {
         success: false,
