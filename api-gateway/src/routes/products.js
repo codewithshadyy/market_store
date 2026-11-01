@@ -5,7 +5,7 @@ const axios = require("axios")
 
 const Authenticate = require("../middleware/authenticate")
 const Authorize = require("../middleware/authorize")
-const RateLimit = require("../middleware/rateLimiter")
+const {anonymousLimiter} = require("../middleware/rateLimiter")
 
 
 require("dotenv").config()
@@ -16,7 +16,7 @@ const productClient =  axios.create({
 })
 
 
-router.get("/", Authenticate.protect, async(req, res, next) => {
+router.get("/", anonymousLimiter, async(req, res, next) => {
 
     try {
 
