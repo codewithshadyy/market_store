@@ -80,6 +80,8 @@ class ProductController{
 
         try {
 
+          
+
             const {id} = req.params
 
             const product = await ProductService.findProductById(id)
@@ -89,6 +91,11 @@ class ProductController{
                     message:"Suggested product cannot be found"
                 })
             }
+
+
+                
+          
+
             return res.status(200).json({
                 source:"MongoDB",
                 data:product
@@ -105,10 +112,14 @@ class ProductController{
     async findProducts(req,res, next){
 
         try {
+
+            
             const page = Number(req.query.page) || 1
             const limit = Number(req.query.limit) || 10
 
             const results = await ProductService.findProducts(page, limit)
+
+            console.log("Products Service Request ID:", req.id);
 
             return res.status(200).json(results)
 
