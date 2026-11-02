@@ -21,27 +21,6 @@ const productClient =  axios.create({
 
 
 
-router.get("/", async(req, res, next) => {
-
-    try {
-
-        const response = await productClient.get("/category", {
-            params:req.query
-        })
-
-        if(!response){
-            return res.status(404).json({message:"categories not found"})
-        }
-
-        return res.status(response.status).json(response.data)
-        
-    } catch (error) {
-
-        next(error)
-        console.log(error.message)
-        
-    }
-})
 
 router.get("/", Authenticate.protect, customerLimiter, async(req, res, next) => {
 
@@ -52,7 +31,8 @@ router.get("/", Authenticate.protect, customerLimiter, async(req, res, next) => 
         const response = await productClient.get("/products", {
             params:req.query,
               headers: {
-        Authorization: req.headers.authorization
+        Authorization: req.headers.authorization,
+        "X-Request-ID":req.id
     }
         })
 

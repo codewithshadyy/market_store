@@ -6,12 +6,14 @@ const proxy = require("express-http-proxy")
 const routes = require("../src/routes/index")
 
 const requestId = require("./middleware/requestId")
+const requestLogger = require("./middleware/requestLogger")
 
 
 require("dotenv").config()
 
 
 app.use(requestId)
+app.use(requestLogger)
 app.use(express.json())
 
 
