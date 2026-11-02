@@ -10,11 +10,38 @@ const {anonymousLimiter, customerLimiter} = require("../middleware/rateLimiter")
 
 require("dotenv").config()
 
+
+
 const productClient =  axios.create({
     baseURL:process.env.PRODUCT_SERVICE_URL,
     timeout:3000
 })
 
+
+
+
+
+router.get("/", async(req, res, next) => {
+
+    try {
+
+        const response = await productClient.get("/category", {
+            params:req.query
+        })
+
+        if(!response){
+            return res.status(404).json({message:"categories not found"})
+        }
+
+        return res.status(response.status).json(response.data)
+        
+    } catch (error) {
+
+        next(error)
+        console.log(error.message)
+        
+    }
+})
 
 router.get("/", Authenticate.protect, customerLimiter, async(req, res, next) => {
 
