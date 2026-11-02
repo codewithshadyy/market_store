@@ -5,9 +5,15 @@ const proxy = require("express-http-proxy")
 
 const routes = require("../src/routes/index")
 
+const requestId = require("./middleware/requestId")
+
 
 require("dotenv").config()
+
+
+app.use(requestId)
 app.use(express.json())
+
 
 
 
