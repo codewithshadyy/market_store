@@ -5,11 +5,11 @@ function requestId(req, res, next){
 
     const incoming = req.headers["x-request-id"]
 
-    const id = randomUUID()
+    
 
-     req.id = incoming || id
+     req.id = incoming || randomUUID()
 
-    res.setHeader("X-Request-ID", id)
+    res.setHeader("X-Request-ID", req.id)
 
     next()
 }

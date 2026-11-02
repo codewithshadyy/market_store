@@ -1,5 +1,6 @@
 
 const requestId = require("./middleware/requestId")
+const requestLogger = require("./middleware/requestLogger")
 require("dotenv").config()
 const express  = require("express")
 const categoryRoutes = require("./routes/category.routes")
@@ -9,6 +10,7 @@ const ProductsRoutes = require("./routes/product.routes")
 const app = express()
 
 app.use(requestId)
+app.use(requestLogger)
 app.use(express.json())
 
 app.use("/category", categoryRoutes)

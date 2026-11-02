@@ -119,7 +119,7 @@ class ProductController{
 
             const results = await ProductService.findProducts(page, limit)
 
-            console.log("Products Service Request ID:", req.id);
+    
 
             return res.status(200).json(results)
 
