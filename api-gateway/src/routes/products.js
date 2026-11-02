@@ -43,7 +43,7 @@ router.get("/", Authenticate.protect, customerLimiter, async(req, res, next) => 
 
 
 
-router.post("/create", Authenticate.protect , Authorize.roleCheck("admin"), async (req, res, next) => {
+router.post("/create", Authenticate.protect , Authorize.roleCheck("admin"), customerLimiter, async (req, res, next) => {
 
     try {
 
@@ -64,7 +64,7 @@ router.post("/create", Authenticate.protect , Authorize.roleCheck("admin"), asyn
 
 
 
-router.put("/edit/:id",Authenticate.protect , Authorize.roleCheck("admin"), async (req, res, next) => {
+router.put("/edit/:id",Authenticate.protect , Authorize.roleCheck("admin"), customerLimiter,async (req, res, next) => {
 
     try {
 
@@ -84,7 +84,7 @@ router.put("/edit/:id",Authenticate.protect , Authorize.roleCheck("admin"), asyn
     
 })
 
-router.delete("/delete/:id", Authenticate.protect , Authorize.roleCheck("admin"), async (req, res, next) => {
+router.delete("/delete/:id", Authenticate.protect , Authorize.roleCheck("admin"), customerLimiter, async (req, res, next) => {
 
     try {
 
@@ -107,7 +107,7 @@ router.delete("/delete/:id", Authenticate.protect , Authorize.roleCheck("admin")
 })
 
 
-router.get("/:id",Authenticate.protect , async (req, res, next) => {
+router.get("/:id",Authenticate.protect , customerLimiter, async (req, res, next) => {
 
     try {
 
