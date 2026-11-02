@@ -15,7 +15,8 @@ router.post("/register", async(req, res, next) => {
     try {
 
         const response = await customerClient.post("/clients/register", 
-            req.body
+            req.body,
+            
         )
 
         return res.status(response.status).json(response.data)
@@ -33,7 +34,12 @@ router.post("/login", async(req, res, next) => {
     try {
 
         const response = await customerClient.post("/clients/login", 
-            req.body
+            req.body,
+            {
+                headers:{
+                    "X-Request-ID":req.id
+                }
+            }
         )
 
         return res.status(response.status).json(response.data)
