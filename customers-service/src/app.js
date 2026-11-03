@@ -9,6 +9,7 @@ const requestLogger = require("./middleware/requestLogger")
 const clientRoutes = require("./routes/client.routes")
 
 
+
 app.use(requestId)
 app.use(requestLogger)
 app.use(express.json())

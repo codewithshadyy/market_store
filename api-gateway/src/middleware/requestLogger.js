@@ -16,7 +16,7 @@ const requestLogger = pinoHttp({
 
     customLogLevel:(req, res, err) => {
 
-        if(err || res.statusCode >= 500){
+        if(err){
             return "error"
         }
 
@@ -27,6 +27,9 @@ const requestLogger = pinoHttp({
         return "info"
 
 
+    },
+    autoLogging:{
+        ignore:(req) => false
     }
 })
 
