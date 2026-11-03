@@ -3,6 +3,8 @@ const express = require('express')
 const router = express.Router()
 require('dotenv').config()
 
+const AppError = require("../utils/AppError")
+
 const customerClient = axios.create({
     baseURL:process.env.CUSTOMER_SERVICE_URL,
     timeout:3000
@@ -41,6 +43,10 @@ router.post("/login", async(req, res, next) => {
                 }
             }
         )
+
+        if(!response){
+        throw new AppError("Invalid email or password", 401)
+        }
 
         return res.status(response.status).json(response.data)
         

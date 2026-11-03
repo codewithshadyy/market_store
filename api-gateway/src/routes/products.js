@@ -18,7 +18,11 @@ const productClient =  axios.create({
 })
 
 
+const AppError = require("../utils/AppError");
 
+router.get("/test-error", (req, res, next) => {
+    next(new AppError("This is a test error", 404));
+});
 
 
 

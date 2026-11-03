@@ -2,12 +2,12 @@
 
 class AppError extends Error{
 
-    constructor( message,statuscode){
+    constructor( message,statusCode){
 
         super(message)
 
-        this.statuscode =statuscode
-        this.operational = true
+        this.statusCode =statusCode
+        this.isOperational = true
 
 
         Error.captureStackTrace(this, this.constructor)

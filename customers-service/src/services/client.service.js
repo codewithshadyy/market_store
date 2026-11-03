@@ -1,6 +1,7 @@
 
 const Password = require("../utils/password")
 const ClientRepo = require("../repositories/Client.repository")
+const AppError = require("../utils/AppError")
 
 
 class ClientService{
@@ -52,7 +53,7 @@ class ClientService{
 
 
             if(!client){
-                throw new Error("Invalid email or password");
+                throw new AppError("Invalid email or password", 401);
                 
             }
 
