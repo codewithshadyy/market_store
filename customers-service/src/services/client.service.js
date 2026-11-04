@@ -60,7 +60,7 @@ class ClientService{
             const isMatch = await Password.compare(password, client.password)
 
             if(!isMatch){
-                throw new Error("Inalid credentials")
+                 throw new AppError("Invalid email or password", 401);
             }
 
 
