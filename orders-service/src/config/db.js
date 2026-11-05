@@ -13,20 +13,17 @@ const pool = new Pool({
 })
 
 
-async function dbConnection(){
 
-    try {
+pool.on("connect", () => {
+    console.log("Orders database connected")
+})
 
-        pool.connect()
-        console.log("Postgresql connected successfully")
-        
-    } catch (error) {
-        console.log(`Erro connecting to postgresql:${error.message}`)
-        
-    }
-}
+pool.on("error", (error) => {
+
+    console.log(`Error connecting to the database:${error.message}`)
+
+})
 
 
-module.exports = {
-    pool, dbConnection
-}
+
+module.exports =pool
