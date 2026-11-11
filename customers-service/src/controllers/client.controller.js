@@ -71,6 +71,13 @@ class ClientController{
       async findClientById(req, res, next){
 
         try {
+            const {id} = req.params
+            const client = await ClientService.findClientById(id)
+
+            return res.status(200).json({
+                message:"Customer found successfully",
+                data:client
+            })
             
         } catch (error) {
             
