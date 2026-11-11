@@ -57,5 +57,30 @@ router.post("/login", async(req, res, next) => {
     }
 })
 
+router.get("/:id", async(req, res, next) => {
+
+    try {
+        const {id} = req.params
+
+        const response = await customerClient.get(`clients/${id}`, {
+            params:req.params
+        })
+
+        console.log(response.message)
+
+        if(!response){
+        throw new AppError("Client not Found", 404)
+        }
+        
+        return res.status(200).json({
+            data:response
+        })
+    } catch (error) {
+
+        next(error)
+        
+    }
+
+})
 
 module.exports = router
