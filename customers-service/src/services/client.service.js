@@ -77,6 +77,27 @@ class ClientService{
 
         return await ClientRepo.findClientByEmail(email)
     }
+
+
+    async findClientById(id){
+
+        try {
+
+            const client = await ClientRepo.findClientById(id)
+
+             if(!client){
+                throw new Error(`Can't find the client by id in rep layer`)
+
+            }
+
+            return client
+            
+        } catch (error) {
+
+            throw new Error(`Error finding client by id in service layer:${error.message}`)
+            
+        }
+    }
 }
 
 
