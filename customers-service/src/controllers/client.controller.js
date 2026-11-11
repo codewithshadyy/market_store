@@ -65,6 +65,18 @@ class ClientController{
 
 
       }
+
+
+
+      async findClientById(req, res, next){
+
+        try {
+            
+        } catch (error) {
+            
+        }
+
+      }
 }
 
 

@@ -55,6 +55,26 @@ class ClientRepository{
 
 
     }
+
+
+    async findClientById(id){
+        try {
+
+            const client = await clientModel.findById(id)
+
+            if(!client){
+                throw new Error(`Can't find the client by id in rep layer`)
+
+            }
+
+            return client
+            
+        } catch (error) {
+
+            throw new Error(`Error in finding client by ID in repository layer`)
+            
+        }
+    }
 }
 
 
