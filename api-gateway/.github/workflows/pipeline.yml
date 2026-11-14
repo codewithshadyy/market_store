@@ -1,0 +1,42 @@
+
+
+name: API GATEWAY CI PIPELINE
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+jobs:
+    build:
+        runs-on: ubuntu-24.04
+
+
+        defaults:
+
+            run:
+
+                working-directory : api-gateway
+
+        steps:
+                
+                - name: checkout code
+                
+                  uses : actions/checkout@v5
+
+
+                - name: Set up API gateway
+                  uses: actions/setup-node@v5
+                  with:
+                    node-version: 22
+                    cache: npm
+                    cache-dependency-path: api-gateway/package-lock.json
+
+                - name: Install dependency  
+                  run:  npm ci
+                  
+                  
+                - name: Run tests
+                  run: npm tests --if-present  
+
+
